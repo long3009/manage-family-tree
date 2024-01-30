@@ -15,7 +15,6 @@ import Button from "@mui/material/Button";
 import DataTable from "./MyTable";
 import SimpleDialog from "./DataDialog";
 import dayjs from "dayjs";
-import { Netlify } from 'netlify'
 const rows = [{ id: 1, name: "Snow", spouses: [] }];
 const defaultAddRow = { name: "", spouses: [] };
 export default function App() {
@@ -41,7 +40,6 @@ export default function App() {
     return dateObject;
   };
   React.useEffect(() => {
-    console.log("JSON URL", Netlify.env.get("JSON_URL"));
     fetch(jsonURL)
       .then((response) => response.json())
       .then((jsonData) => {
