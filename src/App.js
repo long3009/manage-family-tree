@@ -24,7 +24,7 @@ export default function App() {
   const [tableRows, setTableRows] = React.useState([]);
   const [options, setOptions] = React.useState([]);
   const [jsonURL, setJsonURL] = React.useState(
-    "https://raw.githubusercontent.com/long3009/familytree/main/fm1.json"
+    process.env.REACT_APP_JSON_URL
   );
   React.useEffect(() => {
     const newOptions = tableRows.map((r) => `${r.id}-${r.name}`);
