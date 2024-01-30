@@ -28,11 +28,11 @@ const columns = [
   { field: "mom", headerName: "Mom", width: 130 },
   { field: "spouses", headerName: "Spouses", width: 130 },
   { field: "gender", headerName: "Gender", width: 70 },
-  { field: "avatar", headerName: "Avatar", width: 130 },
+  { field: "avatar", headerName: "Avatar", width: 330 },
   {
     field: "note",
     headerName: "Note",
-    width: 130,
+    width: 330,
     renderCell: (params) => (
       <div style={{ whiteSpace: "pre-line" }}>{params.row.note}</div>
     ),
