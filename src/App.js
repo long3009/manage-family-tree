@@ -57,11 +57,29 @@ export default function App() {
               spouses.push(`${s.id}-${findSpouse.info.name}`);
             }
           });
+         let dad = null;
+          if (item.parents.length > 0) {
+            const findDad = jsonData.find(
+              (d) => d.id.toString() === item.parents[0].id.toString()
+            );
+            if (findDad) {
+              dad = `${findDad.id}-${findDad.info.name}`;
+            }
+          }
+          let mom = null;
+          if (item.parents.length > 1) {
+            const findMom = jsonData.find(
+              (d) => d.id.toString() === item.parents[1].id.toString()
+            );
+            if (findMom) {
+              mom = `${findMom.id}-${findMom.info.name}`;
+            }
+          }
           const row = {
             id: item.id,
             name: item.info.name,
-            dad: item.parents.length > 0 ? item.parents[0] : null,
-            mom: item.parents.length > 1 ? item.parents[1] : null,
+            dad: dad,
+            mom: mom,
             spouses: spouses,
             gender: item.gender,
              birth: item.info.birth !== "" ? convertDate(item.info.birth) : null,
