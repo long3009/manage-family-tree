@@ -2,7 +2,7 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
-import List from "@mui/material/List";
+import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -85,99 +85,115 @@ function SimpleDialog(props) {
     onCancel();
   };
   return (
-    <Dialog open={open}>
+    <Dialog open={open} style={{ width: "100%" }}>
       <DialogTitle>{isEdit ? "Edit" : "Add"}</DialogTitle>
-      <TextField
-        label="Name"
-        value={name}
-        onChange={(event) => {
-          setName(event.target.value);
+      <Box
+        sx={{
+          width: 500,
+          maxWidth: "100%",
         }}
-      />
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-        <DatePicker
-          label="Birth"
-          value={birthValue}
-          onChange={(newValue) => setBirthValue(newValue)}
+      >
+        <TextField
+          fullWidth
+          label="Name"
+          value={name}
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
         />
-      </LocalizationProvider>
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-        <DatePicker
-          label="Death"
-          value={deathValue}
-          onChange={(newValue) => setDeathValue(newValue)}
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+          <DatePicker
+            fullWidth
+            label="Birth"
+            value={birthValue}
+            onChange={(newValue) => setBirthValue(newValue)}
+          />
+        </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
+          <DatePicker
+            fullWidth
+            label="Death"
+            value={deathValue}
+            onChange={(newValue) => setDeathValue(newValue)}
+          />
+        </LocalizationProvider>
+        <Autocomplete
+          fullWidth
+          id="tags-dad"
+          options={options}
+          getOptionLabel={(option) => option}
+          value={dadValue}
+          onChange={(event, newValue) => {
+            setDadValue(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField {...params} variant="standard" label="Dad" />
+          )}
         />
-      </LocalizationProvider>
-      <Autocomplete
-        id="tags-dad"
-        options={options}
-        getOptionLabel={(option) => option}
-        value={dadValue}
-        onChange={(event, newValue) => {
-          setDadValue(newValue);
-        }}
-        renderInput={(params) => (
-          <TextField {...params} variant="standard" label="Dad" />
-        )}
-      />
-      <Autocomplete
-        id="tags-mom"
-        options={options}
-        getOptionLabel={(option) => option}
-        value={momValue}
-        onChange={(event, newValue) => {
-          setMomValue(newValue);
-        }}
-        renderInput={(params) => (
-          <TextField {...params} variant="standard" label="Mom" />
-        )}
-      />
-      <Autocomplete
-        multiple
-        id="tags-standard"
-        options={options}
-        getOptionLabel={(option) => option}
-        value={spousesValues}
-        onChange={(event, newValue) => {
-          setSpousesValues(newValue);
-        }}
-        // inputValue={inputValue}
-        // onInputChange={(event, newInputValue) => {
-        //   setInputValue(newInputValue);
-        // }}
-        renderInput={(params) => (
-          <TextField {...params} variant="standard" label="Spouses" />
-        )}
-      />
-      <Autocomplete
-        id="tags-gender"
-        options={["male", "female"]}
-        getOptionLabel={(option) => option}
-        value={genderValue}
-        onChange={(event, newValue) => {
-          setGenderValue(newValue);
-        }}
-        renderInput={(params) => (
-          <TextField {...params} variant="standard" label="Gender" />
-        )}
-      />
-      <TextField
-        label="Avatar"
-        value={avatar}
-        onChange={(event) => {
-          setAvatar(event.target.value);
-        }}
-      />
-      <TextField
-        label="Note"
-        multiline
-        value={note}
-        onChange={(event) => {
-          setNote(event.target.value);
-        }}
-      />
-      <Button onClick={handleClose}>OK</Button>
-      <Button onClick={handleCancel}>Cancel</Button>
+        <Autocomplete
+          fullWidth
+          id="tags-mom"
+          options={options}
+          getOptionLabel={(option) => option}
+          value={momValue}
+          onChange={(event, newValue) => {
+            setMomValue(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField {...params} variant="standard" label="Mom" />
+          )}
+        />
+        <Autocomplete
+          fullWidth
+          multiple
+          id="tags-standard"
+          options={options}
+          getOptionLabel={(option) => option}
+          value={spousesValues}
+          onChange={(event, newValue) => {
+            setSpousesValues(newValue);
+          }}
+          // inputValue={inputValue}
+          // onInputChange={(event, newInputValue) => {
+          //   setInputValue(newInputValue);
+          // }}
+          renderInput={(params) => (
+            <TextField {...params} variant="standard" label="Spouses" />
+          )}
+        />
+        <Autocomplete
+          fullWidth
+          id="tags-gender"
+          options={["male", "female"]}
+          getOptionLabel={(option) => option}
+          value={genderValue}
+          onChange={(event, newValue) => {
+            setGenderValue(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField {...params} variant="standard" label="Gender" />
+          )}
+        />
+        <TextField
+          fullWidth
+          label="Avatar"
+          value={avatar}
+          onChange={(event) => {
+            setAvatar(event.target.value);
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Note"
+          multiline
+          value={note}
+          onChange={(event) => {
+            setNote(event.target.value);
+          }}
+        />
+        <Button onClick={handleClose}>OK</Button>
+        <Button onClick={handleCancel}>Cancel</Button>
+      </Box>
     </Dialog>
   );
 }
