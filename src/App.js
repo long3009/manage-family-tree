@@ -193,8 +193,12 @@ export default function App() {
         children: children,
         info: {
           name: item.name,
-          birth: dayjs(item.birth).format("DD/MM/YYYY"),
-          death: dayjs(item.death).format("DD/MM/YYYY"),
+          birth: dayjs(item.birth).isValid()
+            ? dayjs(item.birth).format("DD/MM/YYYY")
+            : "",
+          death: dayjs(item.death).isValid()
+            ? dayjs(item.death).format("DD/MM/YYYY")
+            : "",
           note: item.note,
           avatar: avatar,
         },
