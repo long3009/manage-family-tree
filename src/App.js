@@ -64,9 +64,9 @@ export default function App() {
             mom: item.parents.length > 1 ? item.parents[1] : null,
             spouses: spouses,
             gender: item.gender,
-            birth: convertDate(item.info.birth),
+             birth: item.info.birth !== "" ? convertDate(item.info.birth) : null,
             avatar: item.info.avatar,
-            death: convertDate(item.info.death),
+            death: item.info.death !== "" ? convertDate(item.info.death) : null,
             note: item.info.note,
           };
           rows.push(row);
@@ -91,7 +91,7 @@ export default function App() {
       gender: "male",
       birth: new Date(),
       avatar: "",
-      death: new Date(),
+      death: null,
       note: "",
     });
   };
