@@ -41,6 +41,7 @@ export default function App() {
     return dateObject;
   };
   React.useEffect(() => {
+    console.log("JSON URL", window['JSON_URL']);
     fetch(jsonURL)
       .then((response) => response.json())
       .then((jsonData) => {
