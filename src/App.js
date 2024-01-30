@@ -41,7 +41,7 @@ export default function App() {
     return dateObject;
   };
   React.useEffect(() => {
-    console.log("JSON URL", Netlify.env.get("JSON_URL"););
+    console.log("JSON URL", Netlify.env.get("JSON_URL"));
     fetch(jsonURL)
       .then((response) => response.json())
       .then((jsonData) => {
