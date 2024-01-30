@@ -8,13 +8,21 @@ const columns = [
     field: "birth",
     headerName: "Birth",
     width: 130,
-    valueGetter: (params) => `${dayjs(params.row.birth).format("DD/MM/YYYY")}`,
+    valueGetter: (params) =>  `${
+        dayjs(params.row.birth).isValid()
+          ? dayjs(params.row.birth).format("DD/MM/YYYY")
+          : ""
+      }`,
   },
   {
     field: "death",
     headerName: "Death",
     width: 130,
-    valueGetter: (params) => `${dayjs(params.row.death).format("DD/MM/YYYY")}`,
+    valueGetter: (params) => `${
+        dayjs(params.row.death).isValid()
+          ? dayjs(params.row.death).format("DD/MM/YYYY")
+          : ""
+      }`,
   },
   { field: "dad", headerName: "Dad", width: 130 },
   { field: "mom", headerName: "Mom", width: 130 },
