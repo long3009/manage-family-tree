@@ -15,7 +15,7 @@ import Button from "@mui/material/Button";
 import DataTable from "./MyTable";
 import SimpleDialog from "./DataDialog";
 import dayjs from "dayjs";
-
+import { Netlify } from 'netlify'
 const rows = [{ id: 1, name: "Snow", spouses: [] }];
 const defaultAddRow = { name: "", spouses: [] };
 export default function App() {
