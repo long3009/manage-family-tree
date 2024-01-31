@@ -120,7 +120,10 @@ export default function App() {
     console.log("data", value);
     if (!isEdit) {
       const newRows = {
-        id: tableRows.length > 0 ? tableRows[tableRows.length - 1].id + 1 : 1,
+        id:
+          tableRows.length > 0
+            ? Number(tableRows[tableRows.length - 1].id) + 1
+            : 1,
         name: value.name,
         dad: value.dad,
         mom: value.mom,
