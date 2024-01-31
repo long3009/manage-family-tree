@@ -8,7 +8,8 @@ const columns = [
     field: "birth",
     headerName: "Birth",
     width: 130,
-    valueGetter: (params) =>  `${
+    valueGetter: (params) =>
+      `${
         dayjs(params.row.birth).isValid()
           ? dayjs(params.row.birth).format("DD/MM/YYYY")
           : ""
@@ -18,7 +19,8 @@ const columns = [
     field: "death",
     headerName: "Death",
     width: 130,
-    valueGetter: (params) => `${
+    valueGetter: (params) =>
+      `${
         dayjs(params.row.death).isValid()
           ? dayjs(params.row.death).format("DD/MM/YYYY")
           : ""
@@ -42,7 +44,7 @@ const columns = [
 export default function DataTable(props) {
   const { rows, rowClick } = props;
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: "100%", width: "100%" }}>
       <DataGrid
         getRowHeight={() => "auto"}
         rows={rows}

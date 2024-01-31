@@ -23,9 +23,7 @@ export default function App() {
   const [dialogData, setDialogData] = React.useState({});
   const [tableRows, setTableRows] = React.useState([]);
   const [options, setOptions] = React.useState([]);
-  const [jsonURL, setJsonURL] = React.useState(
-    process.env.REACT_APP_JSON_URL
-  );
+  const [jsonURL, setJsonURL] = React.useState(process.env.REACT_APP_JSON_URL);
   React.useEffect(() => {
     const newOptions = tableRows.map((r) => `${r.id}-${r.name}`);
     setOptions(newOptions);
@@ -51,16 +49,16 @@ export default function App() {
           let spouses = [];
           item.spouses.forEach((s) => {
             const findSpouse = jsonData.find(
-              (d) => d.id.toString() === s.id.toString()
+              (d) => d.id.toString() === s.id.toString(),
             );
             if (findSpouse) {
               spouses.push(`${s.id}-${findSpouse.info.name}`);
             }
           });
-         let dad = null;
+          let dad = null;
           if (item.parents.length > 0) {
             const findDad = jsonData.find(
-              (d) => d.id.toString() === item.parents[0].id.toString()
+              (d) => d.id.toString() === item.parents[0].id.toString(),
             );
             if (findDad) {
               dad = `${findDad.id}-${findDad.info.name}`;
@@ -69,7 +67,7 @@ export default function App() {
           let mom = null;
           if (item.parents.length > 1) {
             const findMom = jsonData.find(
-              (d) => d.id.toString() === item.parents[1].id.toString()
+              (d) => d.id.toString() === item.parents[1].id.toString(),
             );
             if (findMom) {
               mom = `${findMom.id}-${findMom.info.name}`;
@@ -82,7 +80,7 @@ export default function App() {
             mom: mom,
             spouses: spouses,
             gender: item.gender,
-             birth: item.info.birth !== "" ? convertDate(item.info.birth) : null,
+            birth: item.info.birth !== "" ? convertDate(item.info.birth) : null,
             avatar: item.info.avatar,
             death: item.info.death !== "" ? convertDate(item.info.death) : null,
             note: item.info.note,
@@ -183,7 +181,7 @@ export default function App() {
       const listChilds = tableRows.filter(
         (i) =>
           getId(i.dad) === item.id.toString() ||
-          getId(i.mom) === item.id.toString()
+          getId(i.mom) === item.id.toString(),
       );
       listChilds.forEach((c) => {
         children.push({
@@ -241,7 +239,7 @@ export default function App() {
     return splits[0];
   };
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth={false}>
       <Button variant="contained" onClick={handleClickAddOpen}>
         ADD
       </Button>
