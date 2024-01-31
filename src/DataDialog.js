@@ -22,6 +22,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
+import Grid from "@mui/material/Grid";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -86,113 +87,145 @@ function SimpleDialog(props) {
   };
   return (
     <Dialog open={open} style={{ width: "100%" }}>
-      <DialogTitle>{isEdit ? "Edit" : "Add"}</DialogTitle>
+      <DialogTitle style={{ textAlign: "center" }}>
+        {isEdit ? "Edit" : "Add"}
+      </DialogTitle>
       <Box
         sx={{
           width: 500,
           maxWidth: "100%",
+          padding: 2,
         }}
       >
-        <TextField
-          fullWidth
-          label="Name"
-          value={name}
-          onChange={(event) => {
-            setName(event.target.value);
-          }}
-        />
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-          <DatePicker
-            fullWidth
-            label="Birth"
-            value={birthValue}
-            onChange={(newValue) => setBirthValue(newValue)}
-          />
-        </LocalizationProvider>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="en-gb">
-          <DatePicker
-            fullWidth
-            label="Death"
-            value={deathValue}
-            onChange={(newValue) => setDeathValue(newValue)}
-          />
-        </LocalizationProvider>
-        <Autocomplete
-          fullWidth
-          id="tags-dad"
-          options={options}
-          getOptionLabel={(option) => option}
-          value={dadValue}
-          onChange={(event, newValue) => {
-            setDadValue(newValue);
-          }}
-          renderInput={(params) => (
-            <TextField {...params} variant="standard" label="Dad" />
-          )}
-        />
-        <Autocomplete
-          fullWidth
-          id="tags-mom"
-          options={options}
-          getOptionLabel={(option) => option}
-          value={momValue}
-          onChange={(event, newValue) => {
-            setMomValue(newValue);
-          }}
-          renderInput={(params) => (
-            <TextField {...params} variant="standard" label="Mom" />
-          )}
-        />
-        <Autocomplete
-          fullWidth
-          multiple
-          id="tags-standard"
-          options={options}
-          getOptionLabel={(option) => option}
-          value={spousesValues}
-          onChange={(event, newValue) => {
-            setSpousesValues(newValue);
-          }}
-          // inputValue={inputValue}
-          // onInputChange={(event, newInputValue) => {
-          //   setInputValue(newInputValue);
-          // }}
-          renderInput={(params) => (
-            <TextField {...params} variant="standard" label="Spouses" />
-          )}
-        />
-        <Autocomplete
-          fullWidth
-          id="tags-gender"
-          options={["male", "female"]}
-          getOptionLabel={(option) => option}
-          value={genderValue}
-          onChange={(event, newValue) => {
-            setGenderValue(newValue);
-          }}
-          renderInput={(params) => (
-            <TextField {...params} variant="standard" label="Gender" />
-          )}
-        />
-        <TextField
-          fullWidth
-          label="Avatar"
-          value={avatar}
-          onChange={(event) => {
-            setAvatar(event.target.value);
-          }}
-        />
-        <TextField
-          fullWidth
-          label="Note"
-          multiline
-          value={note}
-          onChange={(event) => {
-            setNote(event.target.value);
-          }}
-        />
-        <Button onClick={handleClose}>OK</Button>
-        <Button onClick={handleCancel}>Cancel</Button>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Name"
+              value={name}
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              adapterLocale="en-gb"
+            >
+              <DatePicker
+                fullWidth
+                label="Birth"
+                value={birthValue}
+                onChange={(newValue) => setBirthValue(newValue)}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6}>
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              adapterLocale="en-gb"
+            >
+              <DatePicker
+                fullWidth
+                label="Death"
+                value={deathValue}
+                onChange={(newValue) => setDeathValue(newValue)}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6}>
+            <Autocomplete
+              fullWidth
+              id="tags-dad"
+              options={options}
+              getOptionLabel={(option) => option}
+              value={dadValue}
+              onChange={(event, newValue) => {
+                setDadValue(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField {...params} variant="standard" label="Dad" />
+              )}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            {" "}
+            <Autocomplete
+              fullWidth
+              id="tags-mom"
+              options={options}
+              getOptionLabel={(option) => option}
+              value={momValue}
+              onChange={(event, newValue) => {
+                setMomValue(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField {...params} variant="standard" label="Mom" />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Autocomplete
+              fullWidth
+              multiple
+              id="tags-standard"
+              options={options}
+              getOptionLabel={(option) => option}
+              value={spousesValues}
+              onChange={(event, newValue) => {
+                setSpousesValues(newValue);
+              }}
+              // inputValue={inputValue}
+              // onInputChange={(event, newInputValue) => {
+              //   setInputValue(newInputValue);
+              // }}
+              renderInput={(params) => (
+                <TextField {...params} variant="standard" label="Spouses" />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Autocomplete
+              fullWidth
+              id="tags-gender"
+              options={["male", "female"]}
+              getOptionLabel={(option) => option}
+              value={genderValue}
+              onChange={(event, newValue) => {
+                setGenderValue(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField {...params} variant="standard" label="Gender" />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Avatar"
+              value={avatar}
+              onChange={(event) => {
+                setAvatar(event.target.value);
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Note"
+              multiline
+              value={note}
+              onChange={(event) => {
+                setNote(event.target.value);
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} style={{ textAlign: "center" }}>
+            <Button onClick={handleClose}>OK</Button>
+            <Button onClick={handleCancel}>Cancel</Button>
+          </Grid>
+        </Grid>
       </Box>
     </Dialog>
   );
