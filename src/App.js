@@ -15,6 +15,9 @@ import Button from "@mui/material/Button";
 import DataTable from "./MyTable";
 import SimpleDialog from "./DataDialog";
 import dayjs from "dayjs";
+import { database } from "./firebase";
+import { ref, set, child, get } from "firebase/database";
+
 const rows = [{ id: 1, name: "Snow", spouses: [] }];
 const defaultAddRow = { name: "", spouses: [] };
 export default function App() {
@@ -37,6 +40,7 @@ export default function App() {
     console.log("conve", dateObject);
     return dateObject;
   };
+  /* get data from JSON file
   React.useEffect(() => {
     console.log("URL", process.env.REACT_APP_JSON_URL);
     fetch(jsonURL)
@@ -95,7 +99,10 @@ export default function App() {
         console.error(error);
       });
   }, [jsonURL]);
-
+  */
+  React.useEffect(() => {
+    getFromFirebase();
+  }, []);
   const handleClickAddOpen = () => {
     setOpen(true);
     setIsEdit(false);
@@ -136,10 +143,15 @@ export default function App() {
       };
       setTableRows([...tableRows, newRows]);
     } else {
-      const findIdx = tableRows.findIndex((r) => r.id === value.id);
+      const findIdx = tableRows.findIndex(
+        (r) => r.id.toString() === value.id.toString(),
+      );
       if (findIdx > -1) {
-        tableRows[findIdx] = value;
-        setTableRows([...tableRows]);
+        // console.log("findIdx", findIdx);
+        // tableRows[findIdx] = value;
+        const newTableRows = [...tableRows];
+        newTableRows.splice(findIdx, 1, value);
+        setTableRows([...newTableRows]);
       }
     }
   };
@@ -224,8 +236,75 @@ export default function App() {
       };
       convertData.push(formatData);
     });
-    handleSaveToPC(convertData);
-    console.log(convertData);
+    // handleSaveToPC(convertData);
+    console.log("convertData", convertData);
+    saveToFirebase(convertData);
+  };
+  const saveToFirebase = (data) => {
+    set(ref(database, "users"), data);
+  };
+  const getFromFirebase = () => {
+    const dbRef = ref(database);
+    get(child(dbRef, `users`))
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          let jsonData = snapshot.val();
+          console.log("jsonData", jsonData);
+          let rows = [];
+          jsonData.forEach((item) => {
+            console.log("item", item);
+            let spouses = [];
+            item.spouses?.forEach((s) => {
+              const findSpouse = jsonData.find(
+                (d) => d.id.toString() === s.id.toString(),
+              );
+              if (findSpouse) {
+                spouses.push(`${s.id}-${findSpouse.info.name}`);
+              }
+            });
+            let dad = null;
+            if (item.parents?.length > 0) {
+              const findDad = jsonData.find(
+                (d) => d.id.toString() === item.parents[0].id.toString(),
+              );
+              if (findDad) {
+                dad = `${findDad.id}-${findDad.info.name}`;
+              }
+            }
+            let mom = null;
+            if (item.parents?.length > 1) {
+              const findMom = jsonData.find(
+                (d) => d.id.toString() === item.parents[1].id.toString(),
+              );
+              if (findMom) {
+                mom = `${findMom.id}-${findMom.info.name}`;
+              }
+            }
+            const row = {
+              id: item.id,
+              name: item.info.name,
+              dad: dad,
+              mom: mom,
+              spouses: spouses,
+              gender: item.gender,
+              birth:
+                item.info.birth !== "" ? convertDate(item.info.birth) : null,
+              avatar: item.info.avatar,
+              death:
+                item.info.death !== "" ? convertDate(item.info.death) : null,
+              note: item.info.note,
+            };
+            rows.push(row);
+          });
+          console.log("rows", rows);
+          setTableRows(rows);
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const handleSaveToPC = (data) => {
     const fileData = JSON.stringify(data, null, 4);
