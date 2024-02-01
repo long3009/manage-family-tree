@@ -146,6 +146,7 @@ export default function App() {
       const findIdx = tableRows.findIndex(
         (r) => r.id.toString() === value.id.toString(),
       );
+
       if (findIdx > -1) {
         // console.log("findIdx", findIdx);
         // tableRows[findIdx] = value;

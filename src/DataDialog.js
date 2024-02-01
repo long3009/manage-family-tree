@@ -127,6 +127,11 @@ function SimpleDialog(props) {
               adapterLocale="en-gb"
             >
               <DatePicker
+                slotProps={{
+                  actionBar: {
+                    actions: ["clear", "accept", "cancel"],
+                  },
+                }}
                 fullWidth
                 label="Death"
                 value={deathValue}
