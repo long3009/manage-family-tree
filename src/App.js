@@ -242,7 +242,13 @@ export default function App() {
     saveToFirebase(convertData);
   };
   const saveToFirebase = (data) => {
-    set(ref(database, "users"), data);
+    set(ref(database, "users"), data)
+      .then(() => {
+        alert("Save success");
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
   const getFromFirebase = () => {
     const dbRef = ref(database);
