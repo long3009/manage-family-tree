@@ -210,7 +210,7 @@ export default function App() {
       if (avatar === "") {
         if (item.gender === "male") {
           avatar =
-            "https://github.com/long3009/familytree/blob/0ff9f33f3d5ae8afaa6327df3b96846ff7e9eafa/man-avatar.png?raw=true";
+            "https://github.com/long3009/familytree/blob/main/man-avatar.png?raw=true";
         } else {
           avatar =
             "https://github.com/long3009/familytree/blob/main/woman-avatar.png?raw=true";
