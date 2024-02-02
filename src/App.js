@@ -162,7 +162,7 @@ export default function App() {
 
   const handleRowClick = (e) => {
     console.log("row lcik", e);
-    setDialogData(e.row);
+    setDialogData({ ...e.row });
   };
   const handleClickDelete = (e) => {
     const newTableRows = tableRows.filter((r) => r.id !== dialogData.id);
