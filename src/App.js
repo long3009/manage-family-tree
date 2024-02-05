@@ -17,6 +17,7 @@ import SimpleDialog from "./DataDialog";
 import dayjs from "dayjs";
 import { database } from "./firebase";
 import { ref, set, child, get } from "firebase/database";
+import { AES, enc } from "crypto-js";
 
 const rows = [{ id: 1, name: "Snow", spouses: [] }];
 const defaultAddRow = { name: "", spouses: [] };
@@ -239,7 +240,10 @@ export default function App() {
     });
     // handleSaveToPC(convertData);
     console.log("convertData", convertData);
-    saveToFirebase(convertData);
+    const cipherText = AES.encrypt(JSON.stringify(convertData), "admin");
+    //if not encrypted
+    // saveToFirebase(convertData)
+    saveToFirebase(cipherText.toString());
   };
   const saveToFirebase = (data) => {
     set(ref(database, "users"), data)
@@ -255,7 +259,12 @@ export default function App() {
     get(child(dbRef, `users`))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          let jsonData = snapshot.val();
+          // if not encrypted
+          // const jsonData = snapshot.val();
+          let cipherText = snapshot.val();
+          let bytes = AES.decrypt(cipherText, "admin");
+          const decrypted = bytes.toString(enc.Utf8);
+          const jsonData = JSON.parse(decrypted);
           console.log("jsonData", jsonData);
           let rows = [];
           jsonData.forEach((item) => {
