@@ -336,7 +336,39 @@ export default function App() {
     const splits = value.split("-");
     return splits[0];
   };
-  return (
+  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState("");
+  const [pass, setPass] = useState("");
+  const handleLogin = (u, p) => {
+    if (u.toLowerCase() === "hopham" && p.toLowerCase() === "hopham") {
+      setIsAuth(true);
+    } else {
+      alert("Login failed");
+    }
+  };
+  return !isAuth ? (
+    <Container maxWidth={false}>
+      <TextField
+        fullWidth
+        label="User"
+        value={user}
+        onChange={(event) => {
+          setUser(event.target.value);
+        }}
+      />
+      <TextField
+        fullWidth
+        label="Pass"
+        value={pass}
+        onChange={(event) => {
+          setPass(event.target.value);
+        }}
+      />
+      <Button variant="contained" onClick={() => handleLogin(user, pass)}>
+        Login
+      </Button>
+    </Container>
+  ) : (
     <Container maxWidth={false}>
       <Button variant="contained" onClick={handleClickAddOpen}>
         ADD

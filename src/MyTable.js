@@ -51,7 +51,7 @@ export default function DataTable(props) {
         columns={columns}
         initialState={{
           pagination: {
-            paginationModel: { page: 0, pageSize: 100 },
+            paginationModel: { page: 0, pageSize: 10 },
           },
         }}
         onRowClick={rowClick}
